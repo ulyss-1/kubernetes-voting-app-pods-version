@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  app: worker-app-deployment
+  labels:
+    app: demo-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: worker-app-pod
+      app: demo-voting-app
+  template:
+    metadata:
+      name: worker-app-pod
+      labels:
+        name: worker-app-pod
+        app: demo-voting-app
+
+    spec:
+      containers:
+        - name: vworker-app
+          image: dockersamples/examplevotingapp_worker
+            #take images from docker-hub - specifically example-voting-app
+          #ports:
+          # - containerPort: 80
+          #the worker does not expose any ports so we don't need ports section
